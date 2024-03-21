@@ -1,19 +1,20 @@
 package pl.edu.pja.tpo02.flashcardsapp;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class Entry {
     @Id
+    @GeneratedValue
     private int EntryId;
     private String ang;
     private String ger;
     private String pol;
 
 
-    public Entry(int Id,String ang, String ger, String pol) {
-        EntryId = Id;
+    public Entry(String ang, String ger, String pol) {
         this.ang = ang;
         this.ger = ger;
         this.pol = pol;

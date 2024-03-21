@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public class EntryRepository {
-    List<Entry> dictionary = new ArrayList<>();
     private final EntityManager entityManager;
 
     public EntryRepository(EntityManager entityManager) {
@@ -25,29 +24,21 @@ public class EntryRepository {
     public void newWord(int i, int l, String word){
         switch (l){
             case 1:
-                dictionary.get(i).setEng(word);
-                entityManager.find(Entry.class, i+1).setEng(word);
+                entityManager.find(Entry.class, i).setEng(word);
                 break;
             case 2:
-                dictionary.get(i).setGer(word);
-                entityManager.find(Entry.class, i+1).setGer(word);
+                entityManager.find(Entry.class, i).setGer(word);
                 break;
             case 3:
-                dictionary.get(i).setPol(word);
-                entityManager.find(Entry.class, i+1).setPol(word);
+                entityManager.find(Entry.class, i).setPol(word);
                 break;
         }
     }
     @Transactional
     public void delEntry(int i){
-        dictionary.remove(i);
         Optional.ofNullable(entityManager.find(Entry.class, i+1)).ifPresent(entityManager::remove);
     }
-    public void addToRep(Entry e){
-        dictionary.add(e);
-    }
-
     public List<Entry> getDictionary(){
-        return dictionary;
+        return entityManager.createQuery("SELECT e FROM Entry e", Entry.class).getResultList();
     }
 }

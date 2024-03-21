@@ -47,20 +47,16 @@ public class FlashcardsController {
         display(false);
         System.out.println("Choose translation to modify");
         int i=scanner.nextInt();
-        if(i-1>=0&&i-1<fileService.getAllWods().size()){
-            System.out.println("Choose language");
-            System.out.println("1. English");
-            System.out.println("2. German");
-            System.out.println("3. Polish");
-            int number = scanner.nextInt();
-            System.out.println("Insert new word");
-            String line = scanner.nextLine();
-            line = scanner.nextLine();
-            if(number>=1&&number<=3){
-                fileService.modifyWord(i-1,number,line);
-            }else{
-                System.out.println("Error");
-            }
+        System.out.println("Choose language");
+        System.out.println("1. English");
+        System.out.println("2. German");
+        System.out.println("3. Polish");
+        int number = scanner.nextInt();
+        System.out.println("Insert new word");
+        String line = scanner.nextLine();
+        line = scanner.nextLine();
+        if(number>=1&&number<=3){
+            fileService.modifyWord(i,number,line);
         }else{
             System.out.println("Error");
         }
@@ -69,11 +65,7 @@ public class FlashcardsController {
         display(false);
         System.out.println("Choose translation to delete");
         int i=scanner.nextInt();
-        if(i-1>=0&&i-1<fileService.getAllWods().size()){
-            fileService.deleteEntry(i-1);
-        }else{
-            System.out.println("Error");
-        }
+        fileService.deleteEntry(i-1);
     }
 
     private void wordsSort(){
@@ -113,14 +105,13 @@ public class FlashcardsController {
                 Arrays.sort(words,Collections.reverseOrder());
             }
             System.out.println("    English             German              Polish");
-            int k =1;
             for (int i=0;i<entries.size();i++) {
-                System.out.print(k);
-                if (k < 10) {
+                System.out.print(map.get(words[i]).getId());
+                if (map.get(words[i]).getId() < 10) {
                     System.out.print("   ");
-                } else if (k < 100) {
+                } else if (map.get(words[i]).getId() < 100) {
                     System.out.print("  ");
-                } else if (k < 1000) {
+                } else if (map.get(words[i]).getId() < 1000) {
                     System.out.print(" ");
                 }
                 System.out.print(printer.getWord(map.get(words[i]).getEng()));
@@ -132,7 +123,6 @@ public class FlashcardsController {
                     System.out.print(" ");
                 }
                 System.out.println(printer.getWord(map.get(words[i]).getPol()));
-                k++;
             }
         }else{
             System.out.println("Error");
@@ -155,15 +145,14 @@ public class FlashcardsController {
             wordsSort();
         }else {
             System.out.println("All words:");
-            int k = 1;
             System.out.println("    English             German              Polish");
             for (Entry entry : entries) {
-                System.out.print(k);
-                if (k < 10) {
+                System.out.print(entry.getId());
+                if (entry.getId() < 10) {
                     System.out.print("   ");
-                } else if (k < 100) {
+                } else if (entry.getId() < 100) {
                     System.out.print("  ");
-                } else if (k < 1000) {
+                } else if (entry.getId() < 1000) {
                     System.out.print(" ");
                 }
                 System.out.print(printer.getWord(entry.getEng()));
@@ -175,7 +164,6 @@ public class FlashcardsController {
                     System.out.print(" ");
                 }
                 System.out.println(printer.getWord(entry.getPol()));
-                k++;
             }
         }
     }

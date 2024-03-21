@@ -43,15 +43,6 @@ public class FileService {
                 addToDb("lake","See"	,"jezioro");
                 addToDb("sky","Himmel"	,"niebo");
                 addToDb("cloud","Wolke"	,"chmura");
-            } else {
-                query = "SELECT * FROM ENTRY";
-                resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    String ang = resultSet.getString("ANG");
-                    String ger = resultSet.getString("GER");
-                    String pol = resultSet.getString("POL");
-                    addEntry(ang,ger,pol);
-                }
             }
             resultSet.close();
             statement.close();
@@ -72,12 +63,7 @@ public class FileService {
         return entryRepository.getDictionary();
     }
     public void addToDb(String ang,String ger,String pol){
-        Entry e = new Entry(entryRepository.getDictionary().size()+1,ang,ger,pol);
+        Entry e = new Entry(ang,ger,pol);
         entryRepository.addEntry(e);
-        entryRepository.addToRep(e);
-    }
-    public void addEntry(String ang,String ger,String pol){
-        Entry e = new Entry(entryRepository.getDictionary().size()+1,ang,ger,pol);
-        entryRepository.addToRep(e);
     }
 }
