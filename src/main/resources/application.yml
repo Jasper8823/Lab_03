@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Lab_03
+  h2:
+    console:
+      path: /my-h2-console
+  profiles:
+    active: "Low"
+  banner:
+    location: logo-app
+  datasource:
+      url: jdbc:h2:file:./FlashcardsApp
+      username: jasper
+      password: 123456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
