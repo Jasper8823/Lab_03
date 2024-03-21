@@ -65,7 +65,7 @@ public class FlashcardsController {
         display(false);
         System.out.println("Choose translation to delete");
         int i=scanner.nextInt();
-        fileService.deleteEntry(i-1);
+        fileService.deleteEntry(i);
     }
 
     private void wordsSort(){
